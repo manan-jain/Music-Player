@@ -8,7 +8,7 @@
     <string name="song_name">Song Name</string>
     <string name="back_btn">Back</string>
     <string name="start_tv">00:00</string>
-    <string name="end_tv">Loading...</string>
+    <string name="end_tv">Loading…</string>
     <string name="repeat_btn">Repeat</string>
     <string name="equalizer_btn">Equalizer</string>
     <string name="timer_btn">Timer</string>
@@ -22,4 +22,10 @@
     <string name="about">About</string>
     <string name="exit">Exit</string>
     <string name="song_album">Song Album</string>
+    <string name="min_15">15 Minutes</string>
+    <string name="min_30">30 Minutes</string>
+    <string name="min_60">60 Minutes</string>
+    <string name="search_view">Search View</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,6 +1,8 @@
 package com.mananJain.musicplayer
 
+import android.media.MediaMetadataRetriever
 import java.util.concurrent.TimeUnit
+import kotlin.system.exitProcess
 
 data class Music(
     val id : String,
@@ -18,4 +20,40 @@ fun formatDuration(duration: Long) : String {
             minutes*TimeUnit.SECONDS.convert(1, TimeUnit.MINUTES))
 
     return String().format("%02d:%02d", minutes, seconds)
+}
+
+fun getImgArt(path: String): ByteArray? {
+    val retriever = MediaMetadataRetriever()
+    retriever.setDataSource(path)
+    return retriever.embeddedPicture
+}
+
+fun setSongPosition(increment: Boolean) {
+
+    if (!PlayerActivity.repeat) {
+        if (increment) {
+            if (PlayerActivity.musicListPA.size - 1 == PlayerActivity.songPosition) {
+                PlayerActivity.songPosition = 0
+            }
+            else {
+                ++PlayerActivity.songPosition
+            }
+        }
+        else {
+            if (PlayerActivity.songPosition == 0) {
+                PlayerActivity.songPosition = PlayerActivity.musicListPA.size - 1
+            } else {
+                --PlayerActivity.songPosition
+            }
+        }
+    }
+}
+
+fun exitApplication() {
+    if (PlayerActivity.musicService != null) {
+        PlayerActivity.musicService!!.stopForeground(true)
+        PlayerActivity.musicService!!.mediaPlayer!!.release()
+        PlayerActivity.musicService = null
+    }
+    exitProcess(1)
 }

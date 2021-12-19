@@ -3,19 +3,25 @@ package com.mananJain.musicplayer
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mananJain.musicplayer.databinding.ActivityMainBinding
 import java.io.File
-import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,8 +32,11 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         lateinit var MusicListMA : ArrayList<Music>
+        lateinit var musicListSearch : ArrayList<Music>
+        var search : Boolean = false
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -98,7 +107,22 @@ class MainActivity : AppCompatActivity() {
                 R.id.navFeedback -> Toast.makeText(this, "Feedback", Toast.LENGTH_SHORT).show()
                 R.id.navSettings -> Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
                 R.id.navAbout -> Toast.makeText(this, "About", Toast.LENGTH_SHORT).show()
-                R.id.navExit -> exitProcess(1)
+                R.id.navExit -> {
+                    val builder = MaterialAlertDialogBuilder(this)
+                    builder.setTitle("Exit")
+                        .setMessage("Do you want to close the app?")
+                        .setPositiveButton("Yes") {_ , _ ->
+                            exitApplication()
+                        }
+                        .setNegativeButton("No") {dialog, _ ->
+                            dialog.dismiss()
+                        }
+
+                    val customDialog = builder.create()
+                    customDialog.show()
+                    customDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.RED)
+                    customDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.RED)
+                }
             }
             true
         }
@@ -114,6 +138,8 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun initializeLayout() {
+
+        search = false
 
         MusicListMA = getAllAudio()
 
@@ -164,24 +190,41 @@ class MainActivity : AppCompatActivity() {
         }
         return tempList
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        if (!PlayerActivity.isPlaying && PlayerActivity.musicService != null) {
+            exitApplication()
+        }
+    }
+
+    // This function is called when MENU is created
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.search_view_menu, menu)
+
+        val searchView = menu?.findItem(R.id.searchView)?.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            override fun onQueryTextSubmit(query: String?): Boolean = true
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                musicListSearch = ArrayList()       // For initializing
+                if (newText != null) {
+                    val userInput = newText.lowercase()
+                    for (song in MusicListMA) {
+                        if (song.title.lowercase().contains(userInput)) {
+                            musicListSearch.add(song)
+                        }
+                    }
+                    search = true
+                    musicAdapter.updateMusicList(searchList = musicListSearch)
+                }
+                return true
+            }
+
+        })
+
+        return super.onCreateOptionsMenu(menu)
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

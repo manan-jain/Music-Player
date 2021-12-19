@@ -18,8 +18,9 @@
 
 <!--        Back Button-->
         <ImageButton
+            android:id="@+id/backBtnPA"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:src="@drawable/back_icon"
             android:background="@android:color/transparent"
             android:layout_marginStart="15dp"
@@ -119,6 +120,7 @@
         android:layout_weight="1">
 
         <TextView
+            android:id="@+id/tvSeekBarStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -127,12 +129,14 @@
             android:layout_gravity="center"/>
 
         <androidx.appcompat.widget.AppCompatSeekBar
+            android:id="@+id/seekBarPA"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             tools:ignore="NestedWeights" />
 
         <TextView
+            android:id="@+id/tvSeekBarEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -149,7 +153,9 @@
         android:orientation="horizontal"
         android:layout_weight="1">
 
+<!--        Repeat Button-->
         <ImageButton
+            android:id="@+id/repeatButtonPA"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:src="@drawable/repeat_icon"
@@ -160,6 +166,7 @@
             tools:ignore="NestedWeights" />
 
         <ImageButton
+            android:id="@+id/equalizerBtnPA"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:src="@drawable/equalizer_icon"
@@ -169,6 +176,7 @@
             android:layout_weight="1"/>
 
         <ImageButton
+            android:id="@+id/timerBtnPA"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:src="@drawable/timer_icon"
@@ -178,6 +186,7 @@
             android:layout_weight="1"/>
 
         <ImageButton
+            android:id="@+id/shareBtnPA"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:src="@drawable/share_icon"

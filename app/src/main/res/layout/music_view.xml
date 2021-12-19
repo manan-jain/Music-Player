@@ -21,10 +21,10 @@
         android:layout_marginStart="5dp"
         android:layout_toStartOf="@id/songDuration"
         android:layout_toEndOf="@id/imageMV"
-        android:text="@string/song_name"
-        android:textColor="@color/black"
         android:gravity="center_vertical"
-        android:singleLine="true"/>
+        android:singleLine="true"
+        android:text="@string/song_name"
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/songAlbumMV"

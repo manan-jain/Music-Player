@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.mananJain.musicplayer.databinding.MusicViewBinding
 
-class MusicAdapter(private val context: Context, private val musicList: ArrayList<Music>) : RecyclerView.Adapter<MusicAdapter.MyHolder>() {
+class MusicAdapter(private val context: Context, private var musicList: ArrayList<Music>) : RecyclerView.Adapter<MusicAdapter.MyHolder>() {
 
     class MyHolder(binding: MusicViewBinding) : RecyclerView.ViewHolder(binding.root) {
         val title = binding.songNameMV
@@ -35,14 +35,27 @@ class MusicAdapter(private val context: Context, private val musicList: ArrayLis
             .into(holder.image)
 
         holder.root.setOnClickListener {
-            val intent = Intent(context, PlayerActivity::class.java)
-            intent.putExtra("index", position)
-            intent.putExtra("class", "MusicAdapter")
-            ContextCompat.startActivity(context, intent, null)
+            when {
+                MainActivity.search -> sendIntent(ref = "MusicAdapterSearch", position = position)
+                else -> sendIntent("MusicAdapter", position)
+            }
         }
+    }
+
+    private fun sendIntent(ref : String, position: Int) {
+        val intent = Intent(context, PlayerActivity::class.java)
+        intent.putExtra("index", position)
+        intent.putExtra("class", ref)
+        ContextCompat.startActivity(context, intent, null)
     }
 
     override fun getItemCount(): Int {
         return musicList.size
+    }
+
+    fun updateMusicList(searchList : ArrayList<Music>) {
+        musicList = ArrayList()
+        musicList.addAll(searchList)
+        notifyDataSetChanged()
     }
 }
