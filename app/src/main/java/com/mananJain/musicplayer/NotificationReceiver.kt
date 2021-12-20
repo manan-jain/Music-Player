@@ -3,10 +3,8 @@ package com.mananJain.musicplayer
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import kotlin.system.exitProcess
 
 class NotificationReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -46,6 +44,21 @@ class NotificationReceiver : BroadcastReceiver() {
             .into(PlayerActivity.binding.songImagePA)
         PlayerActivity.binding.songNamePA.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].title
 
+        // To change layout in NowPlayingFragment
+        Glide.with(context)
+            .load(PlayerActivity.musicListPA[PlayerActivity.songPosition].artUri)
+            .apply(RequestOptions().placeholder(R.drawable.music_player_icon_splash_screen).centerCrop())
+            .into(NowPlayingFragment.binding.songImageNP)
+        NowPlayingFragment.binding.songNameNP.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].title
+
         playMusic()
+
+        PlayerActivity.fIndex = favoriteChecker(PlayerActivity.musicListPA[PlayerActivity.songPosition].id)
+        if (PlayerActivity.isFavorite) {
+            PlayerActivity.binding.favoriteBtnPA.setImageResource(R.drawable.favourite_icon)
+        }
+        else {
+            PlayerActivity.binding.favoriteBtnPA.setImageResource(R.drawable.favourite_empty_icon)
+        }
     }
 }

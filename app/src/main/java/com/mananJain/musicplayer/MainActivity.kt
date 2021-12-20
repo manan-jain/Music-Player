@@ -11,7 +11,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -20,6 +19,8 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import com.mananJain.musicplayer.databinding.ActivityMainBinding
 import java.io.File
 
@@ -51,10 +52,21 @@ class MainActivity : AppCompatActivity() {
         toggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        if(requestRuntimePermission())
+        if(requestRuntimePermission()) {
+            // initializing layout
+            initializeLayout()
 
-        // initializing layout
-        initializeLayout()
+            // For retrieving favorites data using Shared Preferences
+            FavoriteActivity.favoriteSongs = ArrayList()
+            val editor = getSharedPreferences("FAVORITES", MODE_PRIVATE)
+            val jsonString = editor.getString("FavoriteSongs", null)
+            val typeToken = object : TypeToken<ArrayList<Music>>() {}.type
+
+            if (jsonString != null) {
+                val data : ArrayList<Music> = GsonBuilder().create().fromJson(jsonString, typeToken)
+                FavoriteActivity.favoriteSongs.addAll(data)
+            }
+        }
 
         binding.shuffleBtn.setOnClickListener {
             val intent = Intent(this, PlayerActivity::class.java)
@@ -197,6 +209,16 @@ class MainActivity : AppCompatActivity() {
         if (!PlayerActivity.isPlaying && PlayerActivity.musicService != null) {
             exitApplication()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        // For storing favorites data using Shared Preferences
+        val editor = getSharedPreferences("FAVORITES", MODE_PRIVATE).edit()
+        val jsonString = GsonBuilder().create().toJson(FavoriteActivity.favoriteSongs)
+        editor.putString("FavoriteSongs", jsonString)
+        editor.apply()
     }
 
     // This function is called when MENU is created

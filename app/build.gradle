@@ -53,4 +53,7 @@ dependencies {
 
     // For showing Notifications
     implementation "androidx.media:media:1.4.3"
+
+    // For storing objects in shared preferences
+    implementation 'com.google.code.gson:gson:2.8.9'
 }

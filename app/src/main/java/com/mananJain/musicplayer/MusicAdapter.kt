@@ -1,5 +1,6 @@
 package com.mananJain.musicplayer
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -37,6 +38,9 @@ class MusicAdapter(private val context: Context, private var musicList: ArrayLis
         holder.root.setOnClickListener {
             when {
                 MainActivity.search -> sendIntent(ref = "MusicAdapterSearch", position = position)
+                musicList[position].id == PlayerActivity.nowPlayingId -> {
+                    sendIntent(ref = "NowPlaying", position = PlayerActivity.songPosition)
+                }
                 else -> sendIntent("MusicAdapter", position)
             }
         }
@@ -53,6 +57,7 @@ class MusicAdapter(private val context: Context, private var musicList: ArrayLis
         return musicList.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateMusicList(searchList : ArrayList<Music>) {
         musicList = ArrayList()
         musicList.addAll(searchList)

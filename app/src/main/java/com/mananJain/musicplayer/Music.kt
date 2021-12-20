@@ -57,3 +57,14 @@ fun exitApplication() {
     }
     exitProcess(1)
 }
+
+fun favoriteChecker(id: String) : Int {
+    PlayerActivity.isFavorite = false
+    FavoriteActivity.favoriteSongs.forEachIndexed { index, music ->
+        if (id == music.id) {
+            PlayerActivity.isFavorite = true
+            return index
+        }
+    }
+    return -1
+}
