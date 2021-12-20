@@ -11,7 +11,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.mananJain.musicplayer.databinding.MusicViewBinding
 
-class MusicAdapter(private val context: Context, private var musicList: ArrayList<Music>) : RecyclerView.Adapter<MusicAdapter.MyHolder>() {
+class MusicAdapter(private val context: Context, private var musicList: ArrayList<Music>, private var playlistDetails : Boolean = false)
+    : RecyclerView.Adapter<MusicAdapter.MyHolder>() {
 
     class MyHolder(binding: MusicViewBinding) : RecyclerView.ViewHolder(binding.root) {
         val title = binding.songNameMV
@@ -35,15 +36,27 @@ class MusicAdapter(private val context: Context, private var musicList: ArrayLis
             .apply(RequestOptions().placeholder(R.drawable.music_player_icon_splash_screen).centerCrop())
             .into(holder.image)
 
-        holder.root.setOnClickListener {
-            when {
-                MainActivity.search -> sendIntent(ref = "MusicAdapterSearch", position = position)
-                musicList[position].id == PlayerActivity.nowPlayingId -> {
-                    sendIntent(ref = "NowPlaying", position = PlayerActivity.songPosition)
+        when {
+            playlistDetails -> {
+                holder.root.setOnClickListener {
+                    sendIntent(ref = "PlaylistDetailsAdapter", position = position)
                 }
-                else -> sendIntent("MusicAdapter", position)
+            }
+
+            else -> {
+                holder.root.setOnClickListener {
+                    when {
+                        MainActivity.search -> sendIntent(ref = "MusicAdapterSearch", position = position)
+                        musicList[position].id == PlayerActivity.nowPlayingId -> {
+                            sendIntent(ref = "NowPlaying", position = PlayerActivity.songPosition)
+                        }
+                        else -> sendIntent("MusicAdapter", position)
+                    }
+                }
             }
         }
+
+
     }
 
     private fun sendIntent(ref : String, position: Int) {

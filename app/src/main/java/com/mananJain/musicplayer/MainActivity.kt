@@ -123,10 +123,10 @@ class MainActivity : AppCompatActivity() {
                     val builder = MaterialAlertDialogBuilder(this)
                     builder.setTitle("Exit")
                         .setMessage("Do you want to close the app?")
-                        .setPositiveButton("Yes") {_ , _ ->
+                        .setPositiveButton("Yes") { _ , _ ->
                             exitApplication()
                         }
-                        .setNegativeButton("No") {dialog, _ ->
+                        .setNegativeButton("No") { dialog, _ ->
                             dialog.dismiss()
                         }
 
