@@ -22,6 +22,9 @@ class FavoriteActivity : AppCompatActivity() {
         binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Checking whether song is present in mobile or not
+        favoriteSongs = checkPlaylist(favoriteSongs)
+
         binding.backBtnFA.setOnClickListener {
             finish()
         }

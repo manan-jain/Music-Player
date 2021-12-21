@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Android/Youtube/MusicPlayer/app/src/main/res/drawable/add_icon.xml" value="0.2484375" />
         <entry key="..\:/Android/Youtube/MusicPlayer/app/src/main/res/drawable/back_icon.xml" value="0.2526041666666667" />
+        <entry key="..\:/Android/Youtube/MusicPlayer/app/src/main/res/drawable/custom_search_view.xml" value="0.2484375" />
         <entry key="..\:/Android/Youtube/MusicPlayer/app/src/main/res/drawable/favourite_icon.xml" value="0.2526041666666667" />
         <entry key="..\:/Android/Youtube/MusicPlayer/app/src/main/res/drawable/next_icon.xml" value="0.2526041666666667" />
         <entry key="..\:/Android/Youtube/MusicPlayer/app/src/main/res/drawable/pause_icon.xml" value="0.2526041666666667" />
@@ -22,6 +23,7 @@
         <entry key="..\:/Android/Youtube/MusicPlayer/app/src/main/res/layout/activity_player.xml" value="0.23645833333333333" />
         <entry key="..\:/Android/Youtube/MusicPlayer/app/src/main/res/layout/activity_playlist.xml" value="0.22239583333333332" />
         <entry key="..\:/Android/Youtube/MusicPlayer/app/src/main/res/layout/activity_playlist_details.xml" value="0.23229166666666667" />
+        <entry key="..\:/Android/Youtube/MusicPlayer/app/src/main/res/layout/activity_selection.xml" value="0.23229166666666667" />
         <entry key="..\:/Android/Youtube/MusicPlayer/app/src/main/res/layout/add_playlist_dialog.xml" value="0.4" />
         <entry key="..\:/Android/Youtube/MusicPlayer/app/src/main/res/layout/bottom_sheet_dialog.xml" value="0.23229166666666667" />
         <entry key="..\:/Android/Youtube/MusicPlayer/app/src/main/res/layout/favorite_view.xml" value="0.23229166666666667" />

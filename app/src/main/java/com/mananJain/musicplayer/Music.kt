@@ -1,6 +1,7 @@
 package com.mananJain.musicplayer
 
 import android.media.MediaMetadataRetriever
+import java.io.File
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
 
@@ -62,6 +63,7 @@ fun setSongPosition(increment: Boolean) {
 
 fun exitApplication() {
     if (PlayerActivity.musicService != null) {
+        PlayerActivity.musicService!!.audioManager.abandonAudioFocus(PlayerActivity.musicService)
         PlayerActivity.musicService!!.stopForeground(true)
         PlayerActivity.musicService!!.mediaPlayer!!.release()
         PlayerActivity.musicService = null
@@ -78,4 +80,15 @@ fun favoriteChecker(id: String) : Int {
         }
     }
     return -1
+}
+
+fun checkPlaylist(playlist: ArrayList<Music>) : ArrayList<Music> {
+    playlist.forEachIndexed { index, music ->
+        val file = File(music.path)
+        if (!file.exists()) {
+            playlist.removeAt(index)
+        }
+    }
+
+    return playlist
 }
