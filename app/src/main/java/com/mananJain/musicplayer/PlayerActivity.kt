@@ -4,6 +4,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.database.Cursor
 import android.graphics.Color
 import android.media.AudioManager
 import android.media.MediaPlayer
@@ -12,6 +13,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
+import android.provider.MediaStore
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.Toast
@@ -42,12 +44,27 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.coolPink)
+        setTheme(MainActivity.currentTheme[MainActivity.themeIndex])
         binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
-        initializeLayout()
+        if (intent.data?.scheme.contentEquals("content")) {
+            val intentService = Intent(this, MusicService::class.java)
+            bindService(intentService, this, BIND_AUTO_CREATE)
+            startService(intentService)
+
+            musicListPA = ArrayList()
+            musicListPA.add(getMusicDetails(intent.data!!))
+            Glide.with(this)
+                .load(getImgArt(musicListPA[songPosition].path))
+                .apply(RequestOptions().placeholder(R.drawable.music_player_icon_splash_screen).centerCrop())
+                .into(binding.songImagePA)
+            binding.songNamePA.text = musicListPA[songPosition].title
+        }
+        else {
+            initializeLayout()
+        }
 
         /**
          * Accessing buttons from activity_player.xml
@@ -159,7 +176,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             musicService!!.mediaPlayer!!.start()
             isPlaying = true
             binding.playPauseBtnPA.setIconResource(R.drawable.pause_icon)
-            musicService!!.showNotification(R.drawable.pause_icon)
+            musicService!!.showNotification(R.drawable.pause_icon, 1f)
 
             binding.tvSeekBarStart.text = formatDuration(musicService!!.mediaPlayer!!.currentPosition.toLong())
             binding.tvSeekBarEnd.text = formatDuration(musicService!!.mediaPlayer!!.duration.toLong())
@@ -301,14 +318,14 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
 
     private fun playMusic() {
         binding.playPauseBtnPA.setIconResource(R.drawable.pause_icon)
-        musicService!!.showNotification(R.drawable.pause_icon)
+        musicService!!.showNotification(R.drawable.pause_icon, 1f)
         isPlaying = true
         musicService!!.mediaPlayer!!.start()
     }
 
     private fun pauseMusic() {
         binding.playPauseBtnPA.setIconResource(R.drawable.play_icon)
-        musicService!!.showNotification(R.drawable.play_icon)
+        musicService!!.showNotification(R.drawable.play_icon, 0f)
         isPlaying = false
         musicService!!.mediaPlayer!!.pause()
     }
@@ -404,6 +421,34 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
                     exitApplication()
             }.start()
             dialog.dismiss()
+        }
+    }
+
+    private fun getMusicDetails(contentUri : Uri) : Music {
+        var cursor: Cursor ?= null
+        try {
+            val projection = arrayOf(MediaStore.Audio.Media.DATA, MediaStore.Audio.Media.DURATION)
+            cursor = this.contentResolver.query(contentUri, projection, null, null, null)
+
+            val dataColumn = cursor?.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA)
+            val durationColumn = cursor?.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION)
+
+            cursor!!.moveToFirst()
+            // retrieving data
+            val path = dataColumn?.let { cursor.getString(it) }
+            val duration = durationColumn?.let { cursor.getLong(it) }!!
+            return Music(id = "Unknown", title = path.toString(), album = "Unknown", artist = "Unknown", duration = duration,
+            artUri = "Unknown", path = path.toString())
+        }
+        finally {
+            cursor?.close()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (musicListPA[songPosition].id == "Unknown" && !isPlaying) {
+            exitApplication()
         }
     }
 }

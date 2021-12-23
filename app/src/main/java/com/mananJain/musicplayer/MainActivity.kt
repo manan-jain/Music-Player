@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -35,13 +36,25 @@ class MainActivity : AppCompatActivity() {
         lateinit var MusicListMA : ArrayList<Music>
         lateinit var musicListSearch : ArrayList<Music>
         var search : Boolean = false
+        var themeIndex : Int = 0
+        val currentTheme = arrayOf(R.style.coolPink, R.style.coolBlue, R.style.coolPurple, R.style.coolGreen, R.style.coolBlack)
+        val currentThemeNav = arrayOf(R.style.coolPinkNav, R.style.coolBlueNav, R.style.coolPurpleNav, R.style.coolGreenNav, R.style.coolBlackNav)
+        val currentGradient = arrayOf(R.drawable.gradient_pink, R.drawable.gradient_blue, R.drawable.gradient_purple,
+        R.drawable.gradient_green, R.drawable.gradient_black)
+
+        var sortOrder: Int = 0
+        val sortingList = arrayOf(MediaStore.Audio.Media.DATE_ADDED + " DESC", MediaStore.Audio.Media.TITLE,
+        MediaStore.Audio.Media.SIZE + " DESC")
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setTheme(R.style.coolPinkNav)
+        val themeEditor = getSharedPreferences("THEMES", MODE_PRIVATE)
+        themeIndex = themeEditor.getInt("themeIndex", 0)
+
+        setTheme(currentThemeNav[themeIndex])
         // Initializing Binding
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -125,9 +138,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.navView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.navFeedback -> Toast.makeText(this, "Feedback", Toast.LENGTH_SHORT).show()
-                R.id.navSettings -> Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
-                R.id.navAbout -> Toast.makeText(this, "About", Toast.LENGTH_SHORT).show()
+                R.id.navFeedback -> startActivity(Intent(this@MainActivity, FeedbackActivity::class.java))
+                R.id.navSettings -> startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
+                R.id.navAbout -> startActivity(Intent(this@MainActivity, AboutActivity::class.java))
                 R.id.navExit -> {
                     val builder = MaterialAlertDialogBuilder(this)
                     builder.setTitle("Exit")
@@ -162,6 +175,9 @@ class MainActivity : AppCompatActivity() {
 
         search = false
 
+        val sortEditor = getSharedPreferences("SORTING", MODE_PRIVATE)
+        sortOrder = sortEditor.getInt("sortOrder", 0)
+
         MusicListMA = getAllAudio()
 
         binding.musicRV.setHasFixedSize(true)
@@ -181,7 +197,7 @@ class MainActivity : AppCompatActivity() {
             MediaStore.Audio.Media.ARTIST,MediaStore.Audio.Media.DURATION,MediaStore.Audio.Media.DATE_ADDED,
             MediaStore.Audio.Media.DATA, MediaStore.Audio.Media.ALBUM_ID)
         val cursor = this.contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection,selection,null,
-            MediaStore.Audio.Media.DATE_ADDED +  " DESC", null)
+            sortingList[sortOrder], null)
 
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -230,11 +246,23 @@ class MainActivity : AppCompatActivity() {
         val jsonStringPlaylist = GsonBuilder().create().toJson(PlaylistActivity.musicPlaylist)
         editor.putString("MusicPlaylist", jsonStringPlaylist)
         editor.apply()
+
+        // For sorting
+        val sortEditor = getSharedPreferences("SORTING", MODE_PRIVATE)
+        val sortValue = sortEditor.getInt("sortOrder", 0)
+        if (sortOrder != sortValue) {
+            sortOrder = sortValue
+            MusicListMA = getAllAudio()
+            musicAdapter.updateMusicList(MusicListMA)
+        }
     }
 
     // This function is called when MENU is created
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.search_view_menu, menu)
+
+        // for setting gradient
+        findViewById<LinearLayout>(R.id.linearLayoutNav)?.setBackgroundResource(currentGradient[themeIndex])
 
         val searchView = menu?.findItem(R.id.searchView)?.actionView as SearchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

@@ -26,7 +26,7 @@ class PlaylistDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setTheme(R.style.coolPink)
+        setTheme(MainActivity.currentTheme[MainActivity.themeIndex])
 
         binding = ActivityPlaylistDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -34,8 +34,10 @@ class PlaylistDetailsActivity : AppCompatActivity() {
         currentPlaylistPosition = intent.extras?.get("index") as Int
 
         // Checking whether song is present in mobile or not
-        PlaylistActivity.musicPlaylist.ref[currentPlaylistPosition].playlist =
-            checkPlaylist(playlist = PlaylistActivity.musicPlaylist.ref[currentPlaylistPosition].playlist)
+        try {
+            PlaylistActivity.musicPlaylist.ref[currentPlaylistPosition].playlist =
+                checkPlaylist(playlist = PlaylistActivity.musicPlaylist.ref[currentPlaylistPosition].playlist)
+        } catch (e: Exception) {}
 
         // Initializing Recycler View
         binding.playlistDetailsRV.setItemViewCacheSize(10)

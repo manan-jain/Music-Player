@@ -21,6 +21,8 @@ class NowPlayingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        requireContext().theme.applyStyle(MainActivity.currentTheme[MainActivity.themeIndex], true)
+
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_now_playing, container, false)
 
@@ -47,7 +49,7 @@ class NowPlayingFragment : Fragment() {
                 .into(binding.songImageNP)
             binding.songNameNP.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].title
 
-            PlayerActivity.musicService!!.showNotification(R.drawable.pause_icon)
+            PlayerActivity.musicService!!.showNotification(R.drawable.pause_icon, 1f)
 
             playMusic()
         }
@@ -85,7 +87,7 @@ class NowPlayingFragment : Fragment() {
     private fun playMusic() {
         PlayerActivity.musicService!!.mediaPlayer!!.start()
         binding.playPauseBtnNP.setIconResource(R.drawable.pause_icon)
-        PlayerActivity.musicService!!.showNotification(R.drawable.pause_icon)
+        PlayerActivity.musicService!!.showNotification(R.drawable.pause_icon, 1f)
         PlayerActivity.binding.nextBtnPA.setIconResource(R.drawable.pause_icon)
         PlayerActivity.isPlaying = true
     }
@@ -93,7 +95,7 @@ class NowPlayingFragment : Fragment() {
     private fun pauseMusic() {
         PlayerActivity.musicService!!.mediaPlayer!!.pause()
         binding.playPauseBtnNP.setIconResource(R.drawable.play_icon)
-        PlayerActivity.musicService!!.showNotification(R.drawable.play_icon)
+        PlayerActivity.musicService!!.showNotification(R.drawable.play_icon, 0f)
         PlayerActivity.binding.nextBtnPA.setIconResource(R.drawable.play_icon)
         PlayerActivity.isPlaying = false
     }

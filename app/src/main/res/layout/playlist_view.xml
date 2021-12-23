@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:cardCornerRadius="15dp"
-    app:strokeColor="@color/cool_pink"
+    app:strokeColor="?attr/themeColor"
     app:strokeWidth="2dp"
     android:layout_margin="10dp">
 
@@ -40,6 +40,6 @@
         android:backgroundTint="@android:color/transparent"
         android:contentDescription="@string/playlist_delete"
         android:src="@drawable/delete_icon"
-        app:tint="@color/cool_pink" />
+        app:tint="?attr/themeColor" />
 
 </com.google.android.material.card.MaterialCardView>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/cool_pink"
+    android:background="?attr/themeColor"
     tools:context=".NowPlayingFragment">
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -23,7 +23,7 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginEnd="10dp"
-        android:backgroundTint="@color/cool_pink"
+        android:backgroundTint="?attr/themeColor"
         app:icon="@drawable/next_icon"
         app:iconSize="40dp"
         app:iconTint="@color/white" />
@@ -35,7 +35,7 @@
         android:layout_centerVertical="true"
         android:layout_marginHorizontal="5dp"
         android:layout_toStartOf="@id/nextBtnNP"
-        android:backgroundTint="@color/cool_pink"
+        android:backgroundTint="?attr/themeColor"
         app:icon="@drawable/play_icon"
         app:iconSize="40dp"
         app:iconTint="@color/white"

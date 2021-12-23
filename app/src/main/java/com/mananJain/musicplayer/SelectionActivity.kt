@@ -13,7 +13,7 @@ class SelectionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.coolPink)
+        setTheme(MainActivity.currentTheme[MainActivity.themeIndex])
         binding = ActivitySelectionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
