@@ -25,6 +25,8 @@ class FeedbackActivity : AppCompatActivity() {
         binding.sendFA.setOnClickListener {
             val feedbackMsg = binding.feedbackMsgFA.text.toString() + "\n" + binding.emailFA.text.toString()
             val subject = binding.topicFA.text.toString()
+            
+            // Username and passwords are stored in Credentials file which is not traced in github
             val userName = Credentials.userName
             val pass = Credentials.password
 
