@@ -25,8 +25,8 @@ class FeedbackActivity : AppCompatActivity() {
         binding.sendFA.setOnClickListener {
             val feedbackMsg = binding.feedbackMsgFA.text.toString() + "\n" + binding.emailFA.text.toString()
             val subject = binding.topicFA.text.toString()
-            val userName = "mananj1103@gmail.com"
-            val pass = "uk08al3160"
+            val userName = Credentials.userName
+            val pass = Credentials.password
 
             // to check whether phone is connected to internet or not
             val cm = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -36,8 +36,8 @@ class FeedbackActivity : AppCompatActivity() {
                         val properties = Properties()
                         properties["mail.smptp.auth"] = "true"
                         properties["mail.smptp.starttls.enable"] = "true"
-                        properties["mail.smptp.host"] = "smtp.gmail.com"
-                        properties["mail.smptp.port"] = "587"
+                        properties["mail.smptp.host"] = Credentials.host
+                        properties["mail.smptp.port"] = Credentials.port
                         val session = Session.getInstance(properties, object : Authenticator(){
                             override fun getPasswordAuthentication(): PasswordAuthentication {
                                 return PasswordAuthentication(userName, pass)
