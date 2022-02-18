@@ -1,10 +1,14 @@
-package com.mananJain.musicplayer
+package com.mananJain.musicplayer.Notifications
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.mananJain.musicplayer.*
+import com.mananJain.musicplayer.Activity.PlayerActivity
+import com.mananJain.musicplayer.Fragments.NowPlayingFragment
+import com.mananJain.musicplayer.utils.ApplicationClass
 
 class NotificationReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {

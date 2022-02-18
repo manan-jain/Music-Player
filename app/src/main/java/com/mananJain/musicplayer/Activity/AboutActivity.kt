@@ -1,4 +1,4 @@
-package com.mananJain.musicplayer
+package com.mananJain.musicplayer.Activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

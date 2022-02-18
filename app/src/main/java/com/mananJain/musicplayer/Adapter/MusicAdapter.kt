@@ -1,4 +1,4 @@
-package com.mananJain.musicplayer
+package com.mananJain.musicplayer.Adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -9,7 +9,14 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.mananJain.musicplayer.Activity.MainActivity
+import com.mananJain.musicplayer.Activity.PlayerActivity
+import com.mananJain.musicplayer.Activity.PlaylistActivity
+import com.mananJain.musicplayer.Music
+import com.mananJain.musicplayer.Activity.PlaylistDetailsActivity
+import com.mananJain.musicplayer.R
 import com.mananJain.musicplayer.databinding.MusicViewBinding
+import com.mananJain.musicplayer.formatDuration
 
 class MusicAdapter(private val context: Context, private var musicList: ArrayList<Music>, private var playlistDetails : Boolean = false,
                    private val selectionActivity: Boolean = false)
@@ -24,11 +31,11 @@ class MusicAdapter(private val context: Context, private var musicList: ArrayLis
         val root = binding.root
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicAdapter.MyHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
         return MyHolder(MusicViewBinding.inflate(LayoutInflater.from(context), parent, false))
     }
 
-    override fun onBindViewHolder(holder: MusicAdapter.MyHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyHolder, position: Int) {
         holder.title.text = musicList[position].title
         holder.album.text = musicList[position].album
         holder.duration.text = formatDuration(musicList[position].duration)
@@ -47,10 +54,14 @@ class MusicAdapter(private val context: Context, private var musicList: ArrayLis
             selectionActivity -> {
                 holder.root.setOnClickListener {
                     if (addSong(musicList[position])) {
-                        holder.root.setBackgroundColor(ContextCompat.getColor(context, R.color.cool_pink))
+                        holder.root.setBackgroundColor(ContextCompat.getColor(context,
+                            R.color.cool_pink
+                        ))
                     }
                     else {
-                        holder.root.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+                        holder.root.setBackgroundColor(ContextCompat.getColor(context,
+                            R.color.white
+                        ))
                     }
                 }
             }

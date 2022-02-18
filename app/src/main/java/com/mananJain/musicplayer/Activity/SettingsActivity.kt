@@ -1,11 +1,13 @@
-package com.mananJain.musicplayer
+package com.mananJain.musicplayer.Activity
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.mananJain.musicplayer.BuildConfig
 import com.mananJain.musicplayer.databinding.ActivitySettingsBinding
+import com.mananJain.musicplayer.exitApplication
 
 class SettingsActivity : AppCompatActivity() {
 

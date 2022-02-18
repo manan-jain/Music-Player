@@ -1,4 +1,4 @@
-package com.mananJain.musicplayer
+package com.mananJain.musicplayer.Activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,6 +6,10 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.mananJain.musicplayer.MusicPlaylist
+import com.mananJain.musicplayer.Playlist
+import com.mananJain.musicplayer.Adapter.PlaylistViewAdapter
+import com.mananJain.musicplayer.R
 import com.mananJain.musicplayer.databinding.ActivityPlaylistBinding
 import com.mananJain.musicplayer.databinding.AddPlaylistDialogBinding
 import java.text.SimpleDateFormat

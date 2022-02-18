@@ -1,4 +1,4 @@
-package com.mananJain.musicplayer
+package com.mananJain.musicplayer.Activity
 
 import android.content.ComponentName
 import android.content.Context
@@ -23,6 +23,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.mananJain.musicplayer.*
+import com.mananJain.musicplayer.Notifications.MusicService
 import com.mananJain.musicplayer.databinding.ActivityPlayerBinding
 
 class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCompletionListener {
@@ -31,7 +33,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         lateinit var musicListPA : ArrayList<Music>
         var songPosition : Int = 0
         var isPlaying : Boolean = false
-        var musicService : MusicService ?= null
+        var musicService : MusicService?= null
         lateinit var binding : ActivityPlayerBinding
         var repeat : Boolean = false
         var min_15 : Boolean = false
@@ -100,11 +102,15 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         binding.repeatButtonPA.setOnClickListener {
             if (!repeat) {
                 repeat = true
-                binding.repeatButtonPA.setColorFilter(ContextCompat.getColor(this, R.color.purple_500))
+                binding.repeatButtonPA.setColorFilter(ContextCompat.getColor(this,
+                    R.color.purple_500
+                ))
             }
             else {
                 repeat = false
-                binding.repeatButtonPA.setColorFilter(ContextCompat.getColor(this, R.color.cool_pink))
+                binding.repeatButtonPA.setColorFilter(ContextCompat.getColor(this,
+                    R.color.cool_pink
+                ))
             }
         }
 
@@ -133,7 +139,9 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
                         min_15 = false
                         min_30 = false
                         min_60 = false
-                        binding.timerBtnPA.setColorFilter(ContextCompat.getColor(this, R.color.cool_pink))
+                        binding.timerBtnPA.setColorFilter(ContextCompat.getColor(this,
+                            R.color.cool_pink
+                        ))
                     }
                     .setNegativeButton("No") {dialog, _ ->
                         dialog.dismiss()

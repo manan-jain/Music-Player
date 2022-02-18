@@ -1,4 +1,4 @@
-package com.mananJain.musicplayer
+package com.mananJain.musicplayer.Activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -22,6 +22,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import com.mananJain.musicplayer.*
+import com.mananJain.musicplayer.Adapter.MusicAdapter
 import com.mananJain.musicplayer.databinding.ActivityMainBinding
 import java.io.File
 
@@ -37,10 +39,24 @@ class MainActivity : AppCompatActivity() {
         lateinit var musicListSearch : ArrayList<Music>
         var search : Boolean = false
         var themeIndex : Int = 0
-        val currentTheme = arrayOf(R.style.coolPink, R.style.coolBlue, R.style.coolPurple, R.style.coolGreen, R.style.coolBlack)
-        val currentThemeNav = arrayOf(R.style.coolPinkNav, R.style.coolBlueNav, R.style.coolPurpleNav, R.style.coolGreenNav, R.style.coolBlackNav)
-        val currentGradient = arrayOf(R.drawable.gradient_pink, R.drawable.gradient_blue, R.drawable.gradient_purple,
-        R.drawable.gradient_green, R.drawable.gradient_black)
+        val currentTheme = arrayOf(
+            R.style.coolPink,
+            R.style.coolBlue,
+            R.style.coolPurple,
+            R.style.coolGreen,
+            R.style.coolBlack
+        )
+        val currentThemeNav = arrayOf(
+            R.style.coolPinkNav,
+            R.style.coolBlueNav,
+            R.style.coolPurpleNav,
+            R.style.coolGreenNav,
+            R.style.coolBlackNav
+        )
+        val currentGradient = arrayOf(
+            R.drawable.gradient_pink, R.drawable.gradient_blue, R.drawable.gradient_purple,
+            R.drawable.gradient_green, R.drawable.gradient_black
+        )
 
         var sortOrder: Int = 0
         val sortingList = arrayOf(MediaStore.Audio.Media.DATE_ADDED + " DESC", MediaStore.Audio.Media.TITLE,

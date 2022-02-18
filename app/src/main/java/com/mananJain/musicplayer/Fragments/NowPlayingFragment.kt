@@ -1,4 +1,4 @@
-package com.mananJain.musicplayer
+package com.mananJain.musicplayer.Fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,11 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.mananJain.musicplayer.Activity.MainActivity
+import com.mananJain.musicplayer.Activity.PlayerActivity
+import com.mananJain.musicplayer.R
 import com.mananJain.musicplayer.databinding.FragmentNowPlayingBinding
+import com.mananJain.musicplayer.setSongPosition
 
 class NowPlayingFragment : Fragment() {
 

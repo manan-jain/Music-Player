@@ -1,4 +1,4 @@
-package com.mananJain.musicplayer
+package com.mananJain.musicplayer.utils
 
 import android.app.Application
 import android.app.NotificationChannel

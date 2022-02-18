@@ -1,6 +1,8 @@
 package com.mananJain.musicplayer
 
 import android.media.MediaMetadataRetriever
+import com.mananJain.musicplayer.Activity.FavoriteActivity
+import com.mananJain.musicplayer.Activity.PlayerActivity
 import java.io.File
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess

@@ -1,4 +1,4 @@
-package com.mananJain.musicplayer
+package com.mananJain.musicplayer.Adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -12,6 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.mananJain.musicplayer.Activity.PlaylistActivity
+import com.mananJain.musicplayer.Playlist
+import com.mananJain.musicplayer.Activity.PlaylistDetailsActivity
+import com.mananJain.musicplayer.R
 import com.mananJain.musicplayer.databinding.PlaylistViewBinding
 
 class PlaylistViewAdapter(private val context: Context, private var playlistList: ArrayList<Playlist>) :

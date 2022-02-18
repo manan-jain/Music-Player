@@ -1,4 +1,4 @@
-package com.mananJain.musicplayer
+package com.mananJain.musicplayer.Activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -12,6 +12,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.GsonBuilder
+import com.mananJain.musicplayer.Adapter.MusicAdapter
+import com.mananJain.musicplayer.R
+import com.mananJain.musicplayer.checkPlaylist
 import com.mananJain.musicplayer.databinding.ActivityPlaylistDetailsBinding
 
 class PlaylistDetailsActivity : AppCompatActivity() {

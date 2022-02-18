@@ -1,4 +1,4 @@
-package com.mananJain.musicplayer
+package com.mananJain.musicplayer.Adapter
 
 import android.content.Context
 import android.content.Intent
@@ -8,6 +8,9 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.mananJain.musicplayer.Activity.PlayerActivity
+import com.mananJain.musicplayer.Music
+import com.mananJain.musicplayer.R
 import com.mananJain.musicplayer.databinding.FavoriteViewBinding
 
 class FavoriteAdapter(private val context: Context, private var musicList: ArrayList<Music>) : RecyclerView.Adapter<FavoriteAdapter.MyHolder>() {

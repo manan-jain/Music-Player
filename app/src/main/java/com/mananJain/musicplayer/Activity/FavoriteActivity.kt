@@ -1,10 +1,12 @@
-package com.mananJain.musicplayer
+package com.mananJain.musicplayer.Activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
+import com.mananJain.musicplayer.*
+import com.mananJain.musicplayer.Adapter.FavoriteAdapter
 import com.mananJain.musicplayer.databinding.ActivityFavoriteBinding
 
 class FavoriteActivity : AppCompatActivity() {

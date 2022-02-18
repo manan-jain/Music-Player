@@ -1,10 +1,11 @@
-package com.mananJain.musicplayer
+package com.mananJain.musicplayer.Activity
 
 import android.content.Context
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.mananJain.musicplayer.utils.Credentials
 import com.mananJain.musicplayer.databinding.ActivityFeedbackBinding
 import java.util.*
 import javax.mail.*
